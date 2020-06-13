@@ -65,3 +65,76 @@ where album_id in (
 
 -- Part 3, Practice Updating Rows
 
+update customer
+set fax = null
+where fax is not null;
+
+
+update customer
+set company = 'Self'
+where company is null;
+
+
+update customer
+set last_name = 'Thompson'
+where first_name = 'Julia' and last_name = 'Barnett';
+
+
+update customer
+set support_rep_id = 4
+where email = 'luisrojas@yahoo.cl';
+
+
+update track
+set composer = 'The darkness around us'
+where genre_id = (
+    select genre_id from genre
+    where name = 'Metal'
+    )
+and composer is null;    
+
+-- Part 4, Group By
+
+select count(*), g.name
+from track t
+join genre g on t.genre_id = g.genre_id
+group by g.name;
+
+select count(*), g.name
+from track t
+join genre g on g.genre_id = t.genre_id
+where g.name = 'Pop' or g.name = 'Rock'
+group by g.name;
+
+select ar.name, count(*)
+from album al
+join artist ar on ar.artist_id = al.artist_id
+group by ar.name;
+
+-- Part 5, Use Distinct
+
+select distinct composer
+from track;
+
+select distinct billing_postal_code
+from invoice;
+
+select distinct company
+from customer;
+
+--Part 6, Delete Rows
+
+delete from practice_delete
+where type = 'bronze';
+
+delete from practice_delete
+where type = 'silver';
+
+delete from practice_delete
+where value = 150;
+
+--Part 6, eCommerce Simulation - No Hints
+
+
+
+
